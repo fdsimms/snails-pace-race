@@ -1,27 +1,33 @@
+require 'rainbow'
+
 class Board
   attr_reader :grid
 
   def self.snail_colors
     {
-      0 => :orange,
-      1 => :blue,
-      2 => :pink,
-      3 => :red,
-      4 => :yellow,
-      5 => :purple
+      0 => :red,
+      1 => :green,
+      2 => :yellow,
+      3 => :blue,
+      4 => :magenta,
+      5 => :cyan
     }
   end
 
   def initialize
     @grid = Array.new(6,:-){Array.new(10,:-)}
-    @grid.length.times {|idx| self[[idx,0]] = "@Y"}
+    @grid.length.times do |idx|
+      color = Board.snail_colors[idx]
+      self[[idx,0]] = Rainbow("@Y").send(color)
+    end
   end
 
   def render
     puts "SNAIL'S PACE RACE!\n\n"
-    grid.each_with_index do |row,idx|
+    grid.each_with_index do |row, idx|
+      color = Board.snail_colors[idx]
       print row.join
-      print " " + Board.snail_colors[idx].to_s.capitalize + "\n"
+      print Rainbow(" " + color.to_s.capitalize).send(color) + "\n"
     end
   end
 
