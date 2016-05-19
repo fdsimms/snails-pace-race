@@ -15,10 +15,10 @@ class Board
   end
 
   def initialize
-    @grid = Array.new(6,:-){Array.new(10,:-)}
+    @grid = Array.new(6, :-){Array.new(10, :-)}
     @grid.length.times do |idx|
       color = Board.snail_colors[idx]
-      self[[idx,0]] = Rainbow("@Y").send(color)
+      self[[idx, 0]] = Rainbow("@Y").send(color)
     end
   end
 
