@@ -44,7 +44,7 @@ class Board
   def winner
     winners = []
     grid.each_with_index do |row, idx|
-      winners << Board.snail_colors[idx] if row.last == "@Y"
+      winners << Board.snail_colors[idx] if row.last != :-
     end
     winners
   end
@@ -57,8 +57,9 @@ class Board
 
   def move_snails(*rolls)
     rolls.each do |roll|
-      snail_pos = grid[roll].index("@Y")
-      self[[roll, snail_pos + 1]] = "@Y"
+      snail_pos = grid[roll].index { |el| el != :-}
+      color = Board.snail_colors[roll]
+      self[[roll, snail_pos + 1]] = Rainbow("@Y").send(color)
       self[[roll, snail_pos]] = :-
     end
   end
@@ -67,7 +68,7 @@ class Board
   end
 
   def won?
-    grid.any? {|row| row.last == "@Y"}
+    grid.any? {|row| row.last != :-}
   end
 
 end
