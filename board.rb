@@ -64,9 +64,6 @@ class Board
     end
   end
 
-  def []
-  end
-
   def won?
     grid.any? {|row| row.last != :-}
   end
